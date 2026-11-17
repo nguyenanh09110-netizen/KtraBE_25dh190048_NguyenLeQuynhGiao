@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Đặt hàng thành công";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Đặt hàng thành công!</h2>
+<p><strong>Mã đơn hàng:</strong> #@Model.OrderID</p>
+<p><strong>Ngày đặt:</strong> @Model.OrderDate</p>
+<p><strong>Trạng thái:</strong> @Model.PaymentStatus</p>
+<p><strong>Địa chỉ giao hàng:</strong> @Model.AddressDelivery</p>
+<p><strong>Tổng tiền:</strong> @Model.TotalAmount.ToString("N0") đ</p>
+
+<h4>Chi tiết sản phẩm:</h4>
+<table class="table table-bordered">
+    <tr>
+        <th>Sản phẩm</th>
+        <th>Số lượng</th>
+        <th>Đơn giá</th>
+    </tr>
+    @foreach (var d in Model.OrderDetails)
+    {
+        <tr>
+            <td>@(d.Product != null ? d.Product.ProductName : ("SP #" + d.ProductID))</td>
+            <td>@d.Quantity</td>
+            <td>@d.UnitPrice.ToString("N0") đ</td>
+        </tr>
+    }
+</table>
+
+<a href="@Url.Action("Index", "Shop")">Tiếp tục mua sắm</a>
+

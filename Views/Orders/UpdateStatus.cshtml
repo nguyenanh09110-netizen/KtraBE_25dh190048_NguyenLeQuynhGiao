@@ -1,0 +1,42 @@
+﻿@model WebBH.Models.Order
+@{
+    ViewBag.Title = "Cập nhật trạng thái đơn #" + Model.OrderID;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var orderStatuses = new[] { "Chờ xác nhận", "Đang xử lý", "Đang giao", "Đã giao", "Đã hủy" };
+    var paymentStatuses = new[] { "Chưa thanh toán", "Đã thanh toán" };
+}
+
+<h2>Cập nhật trạng thái đơn #@Model.OrderID</h2>
+
+@using (Html.BeginForm("UpdateStatus", "Orders", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.OrderID)
+
+    <div class="mb-3">
+        <label class="form-label fw-bold">Trạng thái đơn hàng</label>
+        <select name="OrderStatus" class="form-select">
+            @foreach (var st in orderStatuses)
+            {
+                <option value="@st" @(Model.OrderStatus == st ? "selected" : "")>@st</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label fw-bold">Trạng thái thanh toán</label>
+        <select name="PaymentStatus" class="form-select">
+            @foreach (var ps in paymentStatuses)
+            {
+                <option value="@ps" @(Model.PaymentStatus == ps ? "selected" : "")>@ps</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-sm" style="background-color: #d9ecff; color: #1e3a5f; border-color: #b8daff;">
+        Lưu cập nhật
+    </button>
+    <a href="@Url.Action("Details", "Orders", new { id = Model.OrderID })" class="btn btn-sm btn-outline-secondary ms-1">
+        Quay lại
+    </a>
+}
+

@@ -1,0 +1,23 @@
+﻿@model WebBH.Models.Product
+
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.ProductName</h2>
+
+@if (!string.IsNullOrEmpty(Model.ProductImage))
+{
+    <p><img src="@Url.Content("~/Image/" + Model.ProductImage)" width="180" /></p>
+}
+
+<p><strong>Danh mục:</strong> @(Model.Category != null ? Model.Category.CategoryName : "")</p>
+<p><strong>Giá:</strong> @Model.ProductPrice.ToString("N0") đ</p>
+<p><strong>Số lượng còn:</strong> @Model.Quantity</p>
+<p><strong>Mô tả:</strong> @Model.ProductDecription</p>
+
+<p>
+    <a href="@Url.Action("AddToCart", "Shop", new { id = Model.ProductID, qty = 1 })" class="btn btn-primary">Thêm vào giỏ hàng</a>
+    <a href="@Url.Action("Index", "Shop")" class="btn btn-default">Quay lại</a>
+</p>

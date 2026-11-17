@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Đặt hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var cart = ViewBag.Cart as List<WebBH.Controllers.CartItem>;
+    decimal totalAmount = ViewBag.TotalAmount != null ? (decimal)ViewBag.TotalAmount : 0;
+}
+
+<h2>Thông tin đặt hàng</h2>
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<form method="post" action="@Url.Action("Checkout", "Shop")">
+    <p>
+        <label>Họ tên khách hàng (*):</label><br />
+        <input type="text" name="customerName" required />
+    </p>
+    <p>
+        <label>Số điện thoại (*):</label><br />
+        <input type="text" name="customerPhone" required />
+    </p>
+    <p>
+        <label>Email:</label><br />
+        <input type="email" name="customerEmail" />
+    </p>
+    <p>
+        <label>Địa chỉ giao hàng (*):</label><br />
+        <input type="text" name="addressDelivery" required />
+    </p>
+
+    <h4>Đơn hàng gồm:</h4>
+    <ul>
+        @if (cart != null)
+        {
+            foreach (var item in cart)
+            {
+                <li>@item.ProductName x @item.Quantity (@item.TotalPrice.ToString("N0") đ)</li>
+            }
+        }
+    </ul>
+    <p><strong>Tổng thanh toán: @totalAmount.ToString("N0") đ</strong></p>
+
+    <button type="submit">Xác nhận đặt hàng</button>
+    <a href="@Url.Action("Cart", "Shop")">Quay lại giỏ hàng</a>
+</form>
+

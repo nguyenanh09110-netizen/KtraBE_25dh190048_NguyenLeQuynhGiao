@@ -1,0 +1,89 @@
+﻿@model IEnumerable<WebBH.Models.Order>
+@{
+    ViewBag.Title = "Quản lý đơn hàng";
+    string currentStatus = ViewBag.CurrentStatus as string;
+}
+
+<h2>Quản lý đơn hàng</h2>
+
+@using (Html.BeginForm("Index", "Orders", FormMethod.Get, new { @class = "row g-2 mb-3" }))
+{
+    <div class="col-md-3">
+        <input type="text" name="customerName" value="@ViewBag.CustomerName" class="form-control" placeholder="Tên khách hàng..." />
+    </div>
+    <div class="col-md-3">
+        <select name="paymentStatus" class="form-select">
+            <option value="">-- Trạng thái thanh toán --</option>
+            <option value="Chưa thanh toán" @(ViewBag.PaymentStatus == "Chưa thanh toán" ? "selected" : "")>Chưa thanh toán</option>
+            <option value="Đã thanh toán" @(ViewBag.PaymentStatus == "Đã thanh toán" ? "selected" : "")>Đã thanh toán</option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <input type="date" name="orderDate" value="@ViewBag.OrderDate" class="form-control" />
+    </div>
+    <div class="col-md-3">
+        <button type="submit" class="btn btn-sm" style="background-color: #d9ecff; color: #1e3a5f; border-color: #b8daff;">Tìm kiếm</button>
+    </div>
+}
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning fw-bold">KHÔNG CÓ</div>
+}
+
+<form method="get" action="@Url.Action("Index", "Orders")" class="mb-3 d-flex gap-2">
+    <select name="status" class="form-select" style="width: 220px;">
+        <option value="">-- Tất cả trạng thái --</option>
+        <option value="Chờ xác nhận" @(currentStatus == "Chờ xác nhận" ? "selected" : "")>Chờ xác nhận</option>
+        <option value="Đang xử lý" @(currentStatus == "Đang xử lý" ? "selected" : "")>Đang xử lý</option>
+        <option value="Đang giao" @(currentStatus == "Đang giao" ? "selected" : "")>Đang giao</option>
+        <option value="Đã giao" @(currentStatus == "Đã giao" ? "selected" : "")>Đã giao</option>
+        <option value="Đã hủy" @(currentStatus == "Đã hủy" ? "selected" : "")>Đã hủy</option>
+    </select>
+    <button type="submit" class="btn btn-primary btn-sm text-decoration-none" style="background-color: #d9ecff; color: #1e3a5f; border-color: #b8daff;">
+        Lọc
+    </button>
+</form>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Mã đơn</th>
+        <th>Khách hàng</th>
+        <th>Ngày đặt</th>
+        <th>Tổng tiền</th>
+        <th>Trạng thái</th>
+        <th>Thao tác</th>
+    </tr>
+    @foreach (var o in Model)
+    {
+        <tr>
+            <td>#@o.OrderID</td>
+            <td>@(o.Customer != null ? o.Customer.CustomerName : "")</td>
+            <td>@o.OrderDate</td>
+            <td>@o.TotalAmount.ToString("N0") đ</td>
+            <td>@(o.OrderStatus ?? "Chờ xác nhận")</td>
+            <td>
+                <a href="@Url.Action("Details", "Orders", new { id = o.OrderID })" class="btn btn-outline-secondary btn-sm text-decoration-none" style="background-color: #d9ecff; color: #1e3a5f; border-color: #b8daff;">Chi tiết</a>
+                <a href="@Url.Action("DetailedOrder", "Orders", new { id = o.OrderID })"
+                   class="btn btn-sm text-decoration-none"
+                   style="background-color: #d9ecff; color: #1e3a5f; border-color: #b8daff;">
+                    Chi tiết đơn hàng
+                </a>
+            </td>
+        </tr>
+    }
+</table>
+
+@if (ViewBag.TotalPages != null && ViewBag.TotalPages > 1)
+{
+    <div class="mt-3">
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            <a href="@Url.Action("Index", "Orders", new { customerName = ViewBag.CustomerName, paymentStatus = ViewBag.PaymentStatus, orderDate = ViewBag.OrderDate, status = currentStatus, page = i })"
+               class="btn btn-sm text-decoration-none me-1"
+               style="background-color: @(ViewBag.CurrentPage == i ? "#1e3a5f" : "#d9ecff"); color: @(ViewBag.CurrentPage == i ? "#ffffff" : "#1e3a5f"); border-color: #b8daff;">
+                @i
+            </a>
+        }
+    </div>
+}

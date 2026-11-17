@@ -1,0 +1,48 @@
+﻿/* Set padding to keep content from hitting the edges */
+.body-content {
+    margin-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* Tiêu đề các trang đồng bộ màu xanh đậm */
+h2, h3, h4 {
+    color: #1e3a5f;
+    font-weight: 700;
+}
+
+/* Đổi màu bảng dữ liệu (trang Shop & Admin) sang nền header xanh nhạt */
+.table th {
+    background-color: #e7f3ff;
+    color: #1e3a5f;
+    border-bottom: 2px solid #cfe6ff;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+/* Đổi màu các nút mặc định sang xanh da trời dịu */
+.btn-primary {
+    background-color: #4a90e2;
+    border-color: #4a90e2;
+}
+
+    .btn-primary:hover {
+        background-color: #357abd;
+        border-color: #357abd;
+    }

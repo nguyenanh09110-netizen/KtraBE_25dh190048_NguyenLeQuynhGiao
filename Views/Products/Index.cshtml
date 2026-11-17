@@ -1,0 +1,55 @@
+﻿@model IEnumerable<WebBH.Models.Product>
+
+@{
+    ViewBag.Title = "Quản lý hàng hóa";
+}
+
+<h2>Danh sách hàng hóa</h2>
+
+<p>
+    <a href="@Url.Action("Create", "Products")" class="btn btn-primary btn-sm text-decoration-none mb-3" style="background-color: #d9ecff; color: #1e3a5f; border-color: #b8daff;">
+        Thêm mới sản phẩm
+    </a>
+</p>
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Tên sản phẩm</th>
+        <th>Hình ảnh</th>
+        <th>Đơn giá</th>
+        <th>Số lượng tồn</th>
+        <th>Chủng loại</th>
+        <th>Thao tác</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            <img src="~/Image/@item.ProductImage" width="50" height="50" style="object-fit: cover; border-radius: 4px;" />
+        </td>
+        <td>
+            @String.Format("{0:N0} VNĐ", item.ProductPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.CategoryName)
+        </td>
+        <td>
+            <a href="@Url.Action("Edit", "Products", new { id = item.ProductID })" class="btn btn-outline-primary btn-sm text-decoration-none" style="background-color: #d9ecff; color: #1e3a5f; border-color: #b8daff;">
+                Sửa
+            </a>
+            <a href="@Url.Action("Details", "Products", new { id = item.ProductID })" class="btn btn-outline-secondary btn-sm text-decoration-none ms-1" style="background-color: #d9ecff; color: #1e3a5f; border-color: #b8daff;">
+                Chi tiết
+            </a>
+            <a href="@Url.Action("Delete", "Products", new { id = item.ProductID })" class="btn btn-outline-danger btn-sm text-decoration-none ms-1" style="background-color: #d9ecff; color: #1e3a5f; border-color: #b8daff;">
+                Xóa
+            </a>
+        </td>
+    </tr>
+}
+
+</table>

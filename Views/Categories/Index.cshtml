@@ -1,0 +1,35 @@
+﻿@model IEnumerable<WebBH.Models.Category>
+
+@{
+    ViewBag.Title = "Danh mục";
+}
+
+<h2>Danh sách danh mục</h2>
+
+<p>
+    <a href="@Url.Action("Create", "Categories")" class="btn btn-primary btn-sm text-decoration-none mb-3" style="background-color: #d9ecff; color: #1e3a5f; border-color: #b8daff;">
+        Thêm danh mục
+    </a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoryName)
+        </td>
+        <td>
+            <a href="@Url.Action("Edit", "Categories", new { id = item.CategoryID })" class="btn btn-outline-primary btn-sm text-decoration-none" style="background-color: #d9ecff; color: #1e3a5f; border-color: #b8daff;">Sửa</a>
+            <a href="@Url.Action("Details", "Categories", new { id = item.CategoryID })" class="btn btn-outline-secondary btn-sm text-decoration-none" style="background-color: #d9ecff; color: #1e3a5f; border-color: #b8daff;">Chi tiết</a>
+            <a href="@Url.Action("Delete", "Categories", new { id = item.CategoryID })" class="btn btn-outline-danger btn-sm text-decoration-none" style="background-color: #d9ecff; color: #1e3a5f; border-color: #b8daff;">Xóa</a>
+        </td>
+    </tr>
+}
+
+</table>

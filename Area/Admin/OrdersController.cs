@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
-using System.Data.SqlTypes;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.UI;
 using WebBH.Helpers;
 using WebBH.Models;
 
@@ -49,6 +44,7 @@ namespace WebBH.Controllers
             int totalItems = orderedQuery.Count();
             int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
             if (page < 1) page = 1;
+            if (totalPages > 0 && page > totalPages) page = totalPages;
 
             var pagedOrders = orderedQuery
                 .Skip((page - 1) * pageSize)
@@ -67,16 +63,7 @@ namespace WebBH.Controllers
 
         public ActionResult Details(int? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            var order = db.Orders
-                .Include(o => o.Customer)
-                .Include(o => o.OrderDetails.Select(d => d.Product))
-                .FirstOrDefault(o => o.OrderID == id);
-
-            if (order == null) return HttpNotFound();
-
-            return View(order);
+            return DetailedOrder(id);
         }
 
         public ActionResult DetailedOrder(int? id)
@@ -119,7 +106,7 @@ namespace WebBH.Controllers
             db.Entry(order).State = EntityState.Modified;
             db.SaveChanges();
 
-            return RedirectToAction("Details", new { id = OrderId });
+            return RedirectToAction("DetailedOrder", new { id = OrderId });
         }
 
         protected override void Dispose(bool disposing)

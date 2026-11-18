@@ -63,7 +63,6 @@
             <td>@o.TotalAmount.ToString("N0") đ</td>
             <td>@(o.OrderStatus ?? "Chờ xác nhận")</td>
             <td>
-                <a href="@Url.Action("Details", "Orders", new { id = o.OrderID })" class="btn btn-outline-secondary btn-sm text-decoration-none" style="background-color: #d9ecff; color: #1e3a5f; border-color: #b8daff;">Chi tiết</a>
                 <a href="@Url.Action("DetailedOrder", "Orders", new { id = o.OrderID })"
                    class="btn btn-sm text-decoration-none"
                    style="background-color: #d9ecff; color: #1e3a5f; border-color: #b8daff;">

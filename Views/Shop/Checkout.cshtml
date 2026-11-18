@@ -1,46 +1,63 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Đặt hàng";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var cart = ViewBag.Cart as List<WebBH.Controllers.CartItem>;
     decimal totalAmount = ViewBag.TotalAmount != null ? (decimal)ViewBag.TotalAmount : 0;
 }
 
-<h2>Thông tin đặt hàng</h2>
+<div class="container py-4">
+    <div class="mx-auto" style="max-width: 460px;">
+        <h2 class="mb-3 fw-bold" style="color: #1e3a5f;">Thông tin đặt hàng</h2>
 
-@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-<form method="post" action="@Url.Action("Checkout", "Shop")">
-    <p>
-        <label>Họ tên khách hàng (*):</label><br />
-        <input type="text" name="customerName" required />
-    </p>
-    <p>
-        <label>Số điện thoại (*):</label><br />
-        <input type="text" name="customerPhone" required />
-    </p>
-    <p>
-        <label>Email:</label><br />
-        <input type="email" name="customerEmail" />
-    </p>
-    <p>
-        <label>Địa chỉ giao hàng (*):</label><br />
-        <input type="text" name="addressDelivery" required />
-    </p>
+        <form method="post" action="@Url.Action("Checkout", "Shop")">
+            <div class="mb-3">
+                <label class="form-label fw-semibold" style="color: #1e3a5f;">Họ tên khách hàng (*):</label>
+                <input type="text" name="customerName" class="form-control" required />
+            </div>
 
-    <h4>Đơn hàng gồm:</h4>
-    <ul>
-        @if (cart != null)
-        {
-            foreach (var item in cart)
-            {
-                <li>@item.ProductName x @item.Quantity (@item.TotalPrice.ToString("N0") đ)</li>
-            }
-        }
-    </ul>
-    <p><strong>Tổng thanh toán: @totalAmount.ToString("N0") đ</strong></p>
+            <div class="mb-3">
+                <label class="form-label fw-semibold" style="color: #1e3a5f;">Số điện thoại (*):</label>
+                <input type="text" name="customerPhone" class="form-control" required />
+            </div>
 
-    <button type="submit">Xác nhận đặt hàng</button>
-    <a href="@Url.Action("Cart", "Shop")">Quay lại giỏ hàng</a>
-</form>
+            <div class="mb-3">
+                <label class="form-label fw-semibold" style="color: #1e3a5f;">Email:</label>
+                <input type="email" name="customerEmail" class="form-control" />
+            </div>
 
+            <div class="mb-3">
+                <label class="form-label fw-semibold" style="color: #1e3a5f;">Địa chỉ giao hàng (*):</label>
+                <input type="text" name="addressDelivery" class="form-control" required />
+            </div>
+
+            <div class="p-3 rounded mb-3" style="background-color: #ffffff; border: 1px solid #dcebff;">
+                <h5 class="fw-bold mb-2" style="color: #1e3a5f;">Đơn hàng gồm:</h5>
+                <ul class="mb-2">
+                    @if (cart != null)
+                    {
+                        foreach (var item in cart)
+                        {
+                            <li>@item.ProductName x @item.Quantity (@item.TotalPrice.ToString("N0") đ)</li>
+                        }
+                    }
+                </ul>
+                <div class="fw-bold" style="color: #1e3a5f;">Tổng thanh toán: @totalAmount.ToString("N0") đ</div>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit"
+                        class="btn btn-sm text-decoration-none px-3 py-2 fw-semibold"
+                        style="background-color: #1e3a5f; color: #ffffff; border-color: #1e3a5f;">
+                    Xác nhận đặt hàng
+                </button>
+                <a href="@Url.Action("Cart", "Shop")"
+                   class="btn btn-sm text-decoration-none px-3 py-2"
+                   style="background-color: #d9ecff; color: #1e3a5f; border-color: #b8daff;">
+                    Quay lại giỏ hàng
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

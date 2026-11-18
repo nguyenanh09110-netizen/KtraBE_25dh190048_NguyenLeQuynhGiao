@@ -7,10 +7,10 @@
       <Diagram DiagramId="ca1e6cd09c0945a8ab4dcea288c06f4c" Name="Diagram1">
         <EntityTypeShape EntityType="QuanlyBHModel.Category" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanlyBHModel.Customer" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanlyBHModel.Order" Width="1.5" PointX="4.625" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanlyBHModel.Order" Width="1.5" PointX="3.875" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanlyBHModel.OrderDetail" Width="1.5" PointX="6.125" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanlyBHModel.Product" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanlyBHModel.User" Width="1.5" PointX="1.5" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanlyBHModel.User" Width="1.5" PointX="0.5" PointY="6.75" IsExpanded="true" />
         <AssociationConnector Association="QuanlyBHModel.FK_Pro_Category" ManuallyRouted="false" />
         <AssociationConnector Association="QuanlyBHModel.FK__Order__CustomerI__5629CD9C" ManuallyRouted="false" />
         <AssociationConnector Association="QuanlyBHModel.FK_User_Customer" ManuallyRouted="false" />
